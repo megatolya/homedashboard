@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Dashboard</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+        crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Roboto|Roboto+Mono|Ubuntu+Mono&display=swap" rel="stylesheet">
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=93596fcf-f5bb-445f-b139-98859f7e8643&lang=ru_RU" type="text/javascript"></script>
+    <script type="text/javascript">
+        function init () {
+
+             // Создаем метку с помощью вспомогательного класса.
+    const homeCoords = [55.708363, 37.659032];
+    const workCoords = [55.733463, 37.587693];
+    var homePlacemark = new ymaps.Placemark(homeCoords, {}, {
+        // Задаем стиль метки (метка в виде круга).
+        preset: "islands#blueHomeCircleIcon",
+        // Задаем цвет метки (в формате RGB).
+        iconColor: '#00dd00'
+    });
+    var workPlacemark = new ymaps.Placemark(workCoords, {}, {
+        // Задаем стиль метки (метка в виде круга).
+        preset: "islands#bluePocketCircleIcon",
+        // Задаем цвет метки (в формате RGB).
+        iconColor: '#333'
+    });
+
+    // Создаем карту с добавленными на нее кнопками.
+    var map = new ymaps.Map('map', {
+        center: [55.743073, 37.596903],
+        zoom: 12,
+        controls: [],
+        type: 'yandex#hybrid'
+    });
+            map.geoObjects.add(homePlacemark);
+            map.geoObjects.add(workPlacemark);
+
+    window.ymap = map;
+
+    var actualProvider = new ymaps.traffic.provider.Actual({}, { infoLayerShown: false });
+    actualProvider.setMap(map);
+}
+
+ymaps.ready(init);
+
+    </script>
+    <script type="text/javascript" src="/client.js"></script>
+    <style>
+        html, body {
+            height: 100%;
+            background: black;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .root {
+            height: 100%;
+        }
+
+        .data-container {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            z-index: 1;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 30px;
+            border-radius: 7px;
+        }
+
+        .time,
+        .weather,
+        .traffic {
+            display: flex;
+            flex: 0;
+            color: #ffffff;
+            opacity: 0.8;
+            font-size: 60px;
+            justify-content: flex-end;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+            filter: brightness(0.4);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="root">
+        <div class="data-container"></div>
+        <div id="map"></div>
+    </div>
+</body>
+
+</html>
