@@ -68,17 +68,17 @@ ymaps.ready(init);
         .data-container {
             position: absolute;
             top: 30px;
-            right: 30px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
             flex-direction: column;
             z-index: 1;
             background: rgba(0, 0, 0, 0.4);
-            padding: 30px;
+            padding: 20px;
             border-radius: 7px;
         }
 
         .time,
-        .weather,
         .traffic {
             display: flex;
             flex: 0;
@@ -93,6 +93,7 @@ ymaps.ready(init);
             height: 100%;
             filter: brightness(0.4);
         }
+
     </style>
 </head>
 

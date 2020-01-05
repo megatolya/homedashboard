@@ -4,7 +4,6 @@ function createDiv(className) {
 }
 
 const UPDATE_TIME_TIMEOUT = 50;
-const UPDATE_WEATHER_TIMEOUT = 1000;
 const UPDATE_TRAFFIC_TIMEOUT = 1000;
 
 function getNounPluralForm(a) {
@@ -15,23 +14,6 @@ function getNounPluralForm(a) {
     } else {
         return 2;
     }
-}
-
-function updateWeather(element) {
-    setTimeout(updateWeather, UPDATE_WEATHER_TIMEOUT, element);
-
-    fetch('/weather')
-        .then(res => res.json())
-        .then(data => {
-            if ('weather' in data) {
-                element.html(data.weather);
-            } else {
-                console.error('bad response', data);
-            }
-        })
-        .catch(error => {
-            console.error(error);
-        });
 }
 
 function updateTraffic(element) {
@@ -68,12 +50,10 @@ function updateTime(timeElement) {
 $(function () {
     const container = $('.data-container');
     const time = createDiv('time');
-    const weather = createDiv('weather');
 
-    container.append(time, weather);
+    container.append(time);
 
     updateTime(time);
-    updateWeather(weather);
 });
 
 setTimeout(() => window.location.reload(), 1000 * 60 * 60);
